@@ -11,6 +11,7 @@ const advantageCategories = [
     title: '⏰ Режим работы',
     icon: Clock,
     color: 'from-blue-500 to-blue-600',
+    bgImage: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=800&q=80',
     advantages: [
       { title: 'Работаем ежедневно', desc: 'Без выходных и праздников, 24/7', icon: Calendar },
       { title: 'Оперативность', desc: 'Быстрое выполнение любых задач', icon: Zap },
@@ -22,6 +23,7 @@ const advantageCategories = [
     title: '📋 Официальная работа',
     icon: FileText,
     color: 'from-green-500 to-green-600',
+    bgImage: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
     advantages: [
       { title: 'Работаем официально', desc: 'Заключаем договор, выдаём чеки', icon: Shield },
       { title: 'Любая оплата', desc: 'Наличный и безналичный расчёт', icon: CreditCard },
@@ -33,6 +35,7 @@ const advantageCategories = [
     title: '⭐ Опыт и качество',
     icon: Award,
     color: 'from-yellow-500 to-yellow-600',
+    bgImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80',
     advantages: [
       { title: '10+ лет опыта', desc: 'На рынке с 2014 года', icon: Calendar },
       { title: '5000+ заказов', desc: 'Огромный опыт работы', icon: ThumbsUp },
@@ -44,6 +47,7 @@ const advantageCategories = [
     title: '🛡️ Гарантия качества',
     icon: Shield,
     color: 'from-purple-500 to-purple-600',
+    bgImage: 'https://tse1.explicit.bing.net/th/id/OIP.JAg6Z1unQ_vHm9qMDdsbIAHaFg?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
     advantages: [
       { title: 'Без повреждений', desc: '100% сохранность вашего имущества', icon: CheckCircle },
       { title: 'Бережное отношение', desc: 'К вашему имуществу как к своему', icon: Heart },
@@ -52,9 +56,10 @@ const advantageCategories = [
     ]
   },
   {
-    title: ' География работы',
+    title: '📍 География работы',
     icon: MapPin,
     color: 'from-red-500 to-red-600',
+    bgImage: 'https://tse2.mm.bing.net/th/id/OIP.1G5cv1ule30h5F685PjHrgHaFI?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
     advantages: [
       { title: 'По Гомелю', desc: 'Работаем по всему городу', icon: MapPin },
       { title: 'По Беларуси', desc: 'Выезжаем в любую область', icon: Truck },
@@ -108,15 +113,28 @@ const Advantages = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: categoryIndex * 0.1 }}
-                className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300"
+                className="relative bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300"
               >
+                {/* Фоновое изображение */}
+                <div 
+                  className="absolute inset-0 opacity-30 hover:opacity-40 transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `url(${category.bgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                
+                {/* Градиент поверх фона */}
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 to-slate-800/50" />
+
                 {/* Заголовок категории */}
                 <button
                   onClick={() => setExpandedCategory(isExpanded ? null : categoryIndex)}
-                  className="w-full flex items-center justify-between p-6 text-left"
+                  className="relative w-full flex items-center justify-between p-6 text-left"
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${category.color}`}>
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} shadow-lg`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold font-manrope">
@@ -143,7 +161,7 @@ const Advantages = () => {
                     opacity: isExpanded ? 1 : 0
                   }}
                   transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
+                  className="relative overflow-hidden"
                 >
                   <div className="px-6 pb-6 pt-2 border-t border-white/5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { 
-  Truck, Home, Building2, Users, Trash2, Hammer, Package, Warehouse, 
-  Wrench, Snowflake, Sparkles, ChevronDown, ChevronUp
+  Truck, Users, Trash2, Hammer, Package, Warehouse, 
+  Snowflake, Sparkles, ChevronDown, ChevronUp
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -10,6 +10,7 @@ const serviceCategories = [
     title: '🚚 Грузоперевозки и переезды',
     icon: Truck,
     color: 'from-blue-500 to-blue-600',
+    bgImage: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
     services: [
       { title: 'Грузоперевозки', desc: 'Быстрая доставка грузов по Гомелю и Беларуси' },
       { title: 'Квартирные переезды', desc: 'Аккуратный переезд вашей квартиры под ключ' },
@@ -21,6 +22,7 @@ const serviceCategories = [
     title: '👷 Услуги грузчиков',
     icon: Users,
     color: 'from-green-500 to-green-600',
+    bgImage: 'https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=800&q=80',
     services: [
       { title: 'Услуги грузчиков', desc: 'Опытные грузчики от 20 руб/час' },
       { title: 'Подсобные рабочие', desc: 'Для строительных объектов и производств' },
@@ -29,9 +31,10 @@ const serviceCategories = [
     ]
   },
   {
-    title: '📦 Подъём на этаж',
+     title: '📦 Подъём на этаж',
     icon: Package,
     color: 'from-purple-500 to-purple-600',
+    bgImage: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80',
     services: [
       { title: 'Подъём стройматериалов', desc: 'Кирпич, цемент, смеси. От 30 руб/этаж' },
       { title: 'Подъём плитки', desc: 'Керамическая и керамогранитная. От 35 руб/этаж' },
@@ -45,6 +48,7 @@ const serviceCategories = [
     title: '🏗️ Разгрузка',
     icon: Warehouse,
     color: 'from-orange-500 to-orange-600',
+    bgImage: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',
     services: [
       { title: 'Выгрузка контейнеров', desc: 'Морских и железнодорожных' },
       { title: 'Выгрузка фур', desc: 'Грузовых автомобилей' },
@@ -55,6 +59,7 @@ const serviceCategories = [
     title: '🗑️ Вывоз мусора',
     icon: Trash2,
     color: 'from-red-500 to-red-600',
+    bgImage: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&q=80',
     services: [
       { title: 'Вывоз строительного мусора', desc: 'После ремонта и строительства' },
       { title: 'Вывоз хлама', desc: 'Очистка квартир и домов от старого хлама' },
@@ -65,6 +70,7 @@ const serviceCategories = [
     title: '🔨 Строительные работы',
     icon: Hammer,
     color: 'from-yellow-500 to-yellow-600',
+    bgImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
     services: [
       { title: 'Демонтажные работы', desc: 'Стены, полы, потолки, сантехника' },
       { title: 'Сборка мебели', desc: 'Профессиональная сборка любой мебели' },
@@ -75,6 +81,7 @@ const serviceCategories = [
     title: '❄️ Уборка снега',
     icon: Snowflake,
     color: 'from-cyan-500 to-cyan-600',
+    bgImage: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=800&q=80',
     services: [
       { title: 'Расчистка снега', desc: 'Механизированная и ручная' },
       { title: 'Уборка снега', desc: 'С крыш, дворов, парковок' },
@@ -89,7 +96,7 @@ const Services = () => {
 
   return (
     <section id="услуги" className="relative py-20 overflow-hidden">
-      {/* Фон */}
+      {/* Фон секции */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-primary" />
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
@@ -128,15 +135,28 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: categoryIndex * 0.1 }}
-                className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300"
+                className="relative bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300"
               >
-                {/* Заголовок категории (всегда виден) */}
+                {/* Фоновое изображение - более заметное */}
+                <div 
+                  className="absolute inset-0 opacity-30 hover:opacity-40 transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `url(${category.bgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                
+                {/* Градиент поверх фона - более прозрачный */}
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 to-slate-800/50" />
+
+                {/* Заголовок категории */}
                 <button
                   onClick={() => setExpandedCategory(isExpanded ? null : categoryIndex)}
-                  className="w-full flex items-center justify-between p-6 text-left"
+                  className="relative w-full flex items-center justify-between p-6 text-left"
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${category.color}`}>
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} shadow-lg`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold font-manrope">
@@ -155,7 +175,7 @@ const Services = () => {
                   </div>
                 </button>
 
-                {/* Список услуг (раскрывается) */}
+                {/* Список услуг */}
                 <motion.div
                   initial={false}
                   animate={{ 
@@ -163,7 +183,7 @@ const Services = () => {
                     opacity: isExpanded ? 1 : 0
                   }}
                   transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
+                  className="relative overflow-hidden"
                 >
                   <div className="px-6 pb-6 pt-2 border-t border-white/5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
